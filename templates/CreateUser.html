@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
-</head>
-<body>
+{% extends "base.html" %}
+{}
     <div>
         <form action="/" method="POST">
             {{form.hidden_tag()}}
             Username {{form.username}}
             Email {{form.email}}
             Password {{form.password}}
-            {{form.submit}}
+            <input type="submit" value="Create User">
         </form>
     </div>
-</body>
-</html>
