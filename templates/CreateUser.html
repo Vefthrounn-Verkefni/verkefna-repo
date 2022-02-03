@@ -7,6 +7,14 @@
     <title>Create User</title>
 </head>
 <body>
-    
+    <div>
+        <form action="/" method="POST">
+            {{form.hidden_tag()}}
+            Username {{form.username}}
+            Email {{form.email}}
+            Password {{form.password}}
+            {{form.submit}}
+        </form>
+    </div>
 </body>
 </html>
