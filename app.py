@@ -26,7 +26,9 @@ def index():
 def create_user():
     create_user = CreateUser()
     if create_user.validate_on_submit():
-        newUser = UserModel(name=create_user.name.data,email=create_user.email.data,password=create_user.password.data)
+        newUser = UserModel(create_user.name.data,
+                            create_user.email.data,
+                            create_user.password.data)
         db.session.add(newUser)
         db.session.commit()
     return render_template("CreateUser.html",form=create_user)

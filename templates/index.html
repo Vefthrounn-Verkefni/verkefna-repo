@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
-{% block content %}Home{% endblock content %}
+{% block titill %} Home {% endblock %}
 
 {% block content %}
 <div>
+    {{users}}
     {% for user in users%}
     <div>
         <h1>{{user.name}}</h1>
