@@ -1,8 +1,8 @@
-from audioop import add
-from dataclasses import dataclass
-from flask import Flask, render_template, request,redirect, url_for
+#from audioop import add
+#from dataclasses import dataclass
+from flask import Flask, render_template, request,redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
-from forms import CreateUser
+from forms import CreateUser, LoginForm
 from datetime import datetime
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "password"
@@ -29,7 +29,11 @@ def index():
 
 @app.route("/login",methods=["GET","POST"])
 def login():
-    return render_template("login.html")
+    loginForm = LoginForm()
+    if loginForm.validate_on_submit():
+        pass
+
+    return render_template("login.html",form=loginForm)
 @app.route("/create_user",methods=["GET","POST"])
 def create_user():
     signUpForm = CreateUser()
@@ -37,9 +41,9 @@ def create_user():
         userEmail = UserModel.query.filter_by(email=signUpForm.email.data).first() 
         userUsername = UserModel.query.filter_by(username=signUpForm.username.data).first() 
         if userEmail:
-            return render_template("CreateUser.html",form=signUpForm)
+            flash("Email in use")
         if userUsername:
-            return render_template("CreateUser.html",form=signUpForm)
+            flash("Username in use")
         if userUsername  == None and userEmail == None:
             user = UserModel(   name=signUpForm.name.data,
                                 username=signUpForm.username.data,
@@ -48,8 +52,7 @@ def create_user():
                             )
             db.session.add(user)
             db.session.commit()
-            return url_for("index")
-
+            flash("User added")
 
     return render_template("CreateUser.html",form=signUpForm)
 

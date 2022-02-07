@@ -3,5 +3,15 @@
 {% block titill %} Login {% endblock %}
 
 {% block content %}
+    <div>
+        <form method="POST">
+            Username {{form.username}}
+            Password {{form.password}}
+            <input type="submit" value="Log In">
+            <a href={{url_for("create_user")}}>Sign Up</a>
+        </form>
+
+
+    </div>
 
 {% endblock content %}
