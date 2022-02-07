@@ -1,3 +1,5 @@
+from audioop import add
+from dataclasses import dataclass
 from flask import Flask, render_template, request,redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from forms import CreateUser
@@ -23,14 +25,40 @@ class UserModel(db.Model):
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
-    return render_template("index.html", users=users)
+    return render_template("index.html",users=users)
 
+@app.route("/login",methods=["GET","POST"])
+def login():
+    return render_template("login.html")
 @app.route("/create_user",methods=["GET","POST"])
 def create_user():
-    create_user = CreateUser()
-    if create_user.validate_on_submit():
-        pass
-    return render_template("CreateUser.html",form=create_user)
+    signUpForm = CreateUser()
+    if signUpForm.validate_on_submit():
+        userEmail = UserModel.query.filter_by(email=signUpForm.email.data).first() 
+        userUsername = UserModel.query.filter_by(username=signUpForm.username.data).first() 
+        if userEmail:
+            return render_template("CreateUser.html",form=signUpForm)
+        if userUsername:
+            return render_template("CreateUser.html",form=signUpForm)
+        if userUsername  == None and userEmail == None:
+            user = UserModel(   name=signUpForm.name.data,
+                                username=signUpForm.username.data,
+                                email=signUpForm.email.data,
+                                password = signUpForm.password.data
+                            )
+            db.session.add(user)
+            db.session.commit()
+            return url_for("index")
 
+
+    return render_template("CreateUser.html",form=signUpForm)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return redirect("/") # gera custom page seinna
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return redirect("/") # gera custom page seinna
 if __name__ == "__main__":
     app.run(debug=True)
