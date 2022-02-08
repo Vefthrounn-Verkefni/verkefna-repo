@@ -1,0 +1,5 @@
+flask
+flask wtforms
+flask_sqlalchemy
+pymysql
+cryptography

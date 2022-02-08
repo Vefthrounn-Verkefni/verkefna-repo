@@ -6,7 +6,8 @@ from forms import CreateUser, LoginForm
 from datetime import datetime
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "password"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/database.db"
+# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/database.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:password123@localhost/flask_database"
 db = SQLAlchemy(app)
 
 class UserModel(db.Model):
@@ -52,6 +53,9 @@ def create_user():
                             )
             db.session.add(user)
             db.session.commit()
+            name=signUpForm.name.data = ""
+            username=signUpForm.username.data = ""
+            email=signUpForm.email.data = ""
             flash("User added")
 
     return render_template("CreateUser.html",form=signUpForm)
