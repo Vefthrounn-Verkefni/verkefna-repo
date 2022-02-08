@@ -3,18 +3,30 @@ from flask import Flask, render_template, request,redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
-
+from flask_login import UserMixin, login_required,login_user,LoginManager,logout_user,current_user
 from forms import CreateUser, LoginForm
 
 
-
+# Flask Uppseting
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "password"
+
+# Sqlalchemy uppsetning
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/database.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:password123@localhost/flask_database"
 db = SQLAlchemy(app)
 
-class UserModel(db.Model):
+# Flask Login uppsetning
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+@login_manager.user_loader
+def load_user(user_id):
+    return UserModel.query.get(int(user_id))
+
+# sql model fyrir user
+class UserModel(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
     username = db.Column(db.String(50), nullable=False, unique=True)
@@ -40,7 +52,9 @@ class UserModel(db.Model):
 def index():
     users = UserModel.query.all()
     return render_template("index.html",users=users)
+
 @app.route("/dashboard",methods=["GET","POST"])
+@login_required
 def dashboard():
     return render_template("userDashboard.html",)
     
@@ -48,8 +62,26 @@ def dashboard():
 def login():
     loginForm = LoginForm()
     if loginForm.validate_on_submit():
-        pass
+        flash("validate on Submit")
+        user = UserModel.query.filter_by(username=loginForm.username.data).first()
+        if user:
+            if check_password_hash(user.password_hash,loginForm.password.data):
+                login_user(user)
+                flash("Logged In")
+                return redirect(url_for("dashboard"))
+            else: 
+                flash("Incorrect password")
+        else:
+            flash(f"User {loginForm.username.data} doesn't exist")
+
     return render_template("login.html",form=loginForm)
+
+@app.route("/logout",methods=["GET"])
+@login_required
+def logout():
+    logout_user()
+    flash("You Have Logged out")
+    return redirect(url_for("index"))
 
 @app.route("/create_user",methods=["GET","POST"])
 def create_user():
@@ -84,5 +116,10 @@ def page_not_found(e):
 @app.errorhandler(500)
 def page_not_found(e):
     return redirect("/") # gera custom page seinna
+
+@app.errorhandler(401)
+def page_not_found(e):
+    flash("You Dont have premission to enter this page please log in")
+    return redirect("/login") 
 if __name__ == "__main__":
     app.run(debug=True)

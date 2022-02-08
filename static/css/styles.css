@@ -9,10 +9,11 @@ body {
     overflow: hidden;
     background-color: #333;
   }
-  
+
 .navbar li {
     float: left;
   }
+
   
 .navbar a {
     display: block;
