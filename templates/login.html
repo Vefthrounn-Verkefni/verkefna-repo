@@ -4,6 +4,11 @@
 
 {% block content %}
     <div>
+        {% for message in get_flashed_messages() %}
+            {{message}}
+        {% endfor %}
+    </div>  
+    <div>
         <form method="POST">
             Username {{form.username}}
             Password {{form.password}}

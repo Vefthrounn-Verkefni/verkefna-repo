@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block titill %} USer Dashboard {% endblock %}
+
+{% block content %}
+    <div>
+        {% for message in get_flashed_messages() %}
+            {{message}}
+        {% endfor %}
+    </div>  
+    <h1>Insert Username</h1>
+
+{% endblock content %}
