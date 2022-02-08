@@ -62,7 +62,6 @@ def dashboard():
 def login():
     loginForm = LoginForm()
     if loginForm.validate_on_submit():
-        flash("validate on Submit")
         user = UserModel.query.filter_by(username=loginForm.username.data).first()
         if user:
             if check_password_hash(user.password_hash,loginForm.password.data):

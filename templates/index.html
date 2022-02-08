@@ -3,11 +3,7 @@
 {% block titill %} Home {% endblock %}
 
 {% block content %}
-<div>
-    {% for message in get_flashed_messages() %}
-        {{message}}
-    {% endfor %}
-</div>      
+    
 <div>
     
     {% for user in users%}
@@ -22,4 +18,5 @@
     {% endfor %}
     
 </div>
+
 {% endblock content %}

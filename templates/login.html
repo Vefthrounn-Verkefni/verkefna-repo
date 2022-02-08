@@ -3,11 +3,7 @@
 {% block titill %} Login {% endblock %}
 
 {% block content %}
-    <div>
-        {% for message in get_flashed_messages() %}
-            {{message}}
-        {% endfor %}
-    </div>  
+
     <div>
         <form action="" method="POST">
             {{form.hidden_tag()}}

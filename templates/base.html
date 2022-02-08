@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
     <title>{% block titill %}{% endblock titill %}</title>
 </head>
 <header>
@@ -25,7 +26,15 @@
     </div>    
 </header>
 <body>
+    {% for message in get_flashed_messages() %}
+        <div class="flash_message">
+            {{message}}
+            
+        </div>
+    {% endfor %}  
+  
     {% block content %}
     {% endblock content %}
+    <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
 </body>
 </html>
