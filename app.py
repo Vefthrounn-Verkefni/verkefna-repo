@@ -12,8 +12,8 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "password"
 
 # Sqlalchemy uppsetning
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/database.db"
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:password123@localhost/flask_database"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/database.db"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:password123@localhost/flask_database"
 db = SQLAlchemy(app)
 
 # Flask Login uppsetning

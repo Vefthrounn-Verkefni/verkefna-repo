@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}"> -->
+    <!--<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}">-->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='semantic_ui/semantic.min.css')}}">
 
     <title>{% block titill %}{% endblock titill %}</title>
 </head>
 <header>
-    <div class="navbar">
-            <li><a href="{{ url_for('index') }}">Home</a></li>
+    <div class="ui  menu">
+            <a class="item" href="{{ url_for('index') }}">Home</a>
             {% if current_user.is_authenticated == False%}
-            <li><a href="{{ url_for('create_user') }}">Sign Up</a></li>
-            <li><a href="{{ url_for('login') }}">Log In</a></li>
+            <a class="item" href="{{ url_for('create_user') }}">Sign Up</a>
+            <a class="item" href="{{ url_for('login') }}">Log In</a>
             {% endif %}
 
             {% if current_user.is_authenticated%}
-            <li><a href="{{ url_for('dashboard') }}">{{current_user.username}}</a></li>
+            <a class="item avatar image" href="{{ url_for('dashboard') }}">{{current_user.username}}</a>
              {% endif %}
 
 
