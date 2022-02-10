@@ -5,11 +5,18 @@
 {% block content %}
 
     <div>
-        <form action="" method="POST">
+        <form action="" method="POST" class="ui form">
             {{form.hidden_tag()}}
-            Username {{form.username}}
-            Password {{form.password}}
-            <input type="submit" value="Log In">
+            <div class="field">
+                <label>Username</label> 
+                {{form.username}}
+            </div>
+            <div class="field">
+                <label>Password</label>
+                Password {{form.password}}
+            </div>
+
+            <input class="ui button" type="submit" value="Log In">
         </form>
 
 
