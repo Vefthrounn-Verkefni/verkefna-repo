@@ -28,10 +28,10 @@
 </header>
 <body>
     {% for message in get_flashed_messages() %}
-        <div class="flash_message">
+    <div class="ui message">
+        
             {{message}}
-            
-        </div>
+      </div>
     {% endfor %}  
   
     {% block content %}
