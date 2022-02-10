@@ -25,7 +25,7 @@ login_manager.login_view = "login"
 def load_user(user_id):
     return UserModel.query.get(int(user_id))
 
-# sql model fyrir user
+# SQL model fyrir User
 class UserModel(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
@@ -47,6 +47,7 @@ class UserModel(db.Model,UserMixin):
 
     def __repr__(self):
         return "<Name %r>" % self.name
+
 
 @app.route("/",methods=["GET","POST"])
 def index():
