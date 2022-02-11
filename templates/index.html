@@ -5,11 +5,12 @@
 {% block content %}
     
 
-<div>
+<div class="ui grid">
     
     {% for user in users%}
-    <div>
-       <img class="ui medium image" src="static/img/test.jpg">
+    <div class="one collumn row">
+       <img class="ui medium centered image" src="static/img/test.jpg">
+       <h2>Posted by {{user.name}}</h2>
     </div>
     {% endfor %}
     
