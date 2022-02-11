@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request,redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -48,6 +47,16 @@ class UserModel(db.Model,UserMixin):
     def __repr__(self):
         return "<Name %r>" % self.name
 
+<<<<<<< HEAD
+=======
+class ClothingModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    describtion = db.Column(db.String(220))
+    type = db.Column(db.String(10), nullable=False)
+    image_link = db.Column(db.String(),nullable=False)
+
+
+>>>>>>> d1c092a5e56101e9d3d742ce3b7e32581adc8a0c
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
@@ -66,12 +75,12 @@ def login():
         if user:
             if check_password_hash(user.password_hash,loginForm.password.data):
                 login_user(user)
-                flash("Logged In")
+                flash("Logged In","success")
                 return redirect(url_for("dashboard"))
             else: 
-                flash("Incorrect password")
+                flash("Incorrect password","negative")
         else:
-            flash(f"User {loginForm.username.data} doesn't exist")
+            flash(f"User {loginForm.username.data} doesn't exist","negative")
 
     return render_template("login.html",form=loginForm)
 
@@ -79,7 +88,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    flash("You Have Logged out")
+    flash("You Have Logged out","blue")
     return redirect(url_for("index"))
 
 @app.route("/create_user",methods=["GET","POST"])
@@ -89,9 +98,9 @@ def create_user():
         userEmail = UserModel.query.filter_by(email=signUpForm.email.data).first() 
         userUsername = UserModel.query.filter_by(username=signUpForm.username.data).first() 
         if userEmail:
-            flash("Email in use")
+            flash("Email in use","yellow")
         if userUsername:
-            flash("Username in use")
+            flash("Username in use","yellow")
         if userUsername  == None and userEmail == None:
             hashed_password = generate_password_hash(signUpForm.password.data,"sha256")
             user = UserModel(   name=signUpForm.name.data,
@@ -104,7 +113,7 @@ def create_user():
             name=signUpForm.name.data = ""
             username=signUpForm.username.data = ""
             email=signUpForm.email.data = ""
-            flash("User added")
+            flash("User added","success")
 
     return render_template("CreateUser.html",form=signUpForm)
 
@@ -118,7 +127,7 @@ def page_not_found(e):
 
 @app.errorhandler(401)
 def page_not_found(e):
-    flash("You Dont have premission to enter this page please log in")
+    flash("You Dont have premission to enter this page please log in","negative")
     return redirect("/login") 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -5,13 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <!--<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}">-->
+=======
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}"> -->
+>>>>>>> d1c092a5e56101e9d3d742ce3b7e32581adc8a0c
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='semantic_ui/semantic.min.css')}}">
 
     <title>{% block titill %}{% endblock titill %}</title>
 </head>
 <header>
+<<<<<<< HEAD
     <div class="ui menu">
             <div class="item ui dropdown">
                 <i class="align justify icon"></i>
@@ -34,8 +39,9 @@
     <title>{% block titill %}{% endblock titill %}</title>
 </head>
 <header>
+=======
+>>>>>>> d1c092a5e56101e9d3d742ce3b7e32581adc8a0c
     <div class="navbar">
-        <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
             {% if current_user.is_authenticated == False%}
             <li><a href="{{ url_for('create_user') }}">Sign Up</a></li>
@@ -46,6 +52,7 @@
             <li><a href="{{ url_for('dashboard') }}">{{current_user.username}}</a></li>
              {% endif %}
 
+<<<<<<< HEAD
 
 >>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
         </ul>
@@ -69,6 +76,23 @@
     {% block content %}
     {% endblock content %}
 <<<<<<< HEAD
+=======
+    </div>    
+</header>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    
+      {% for category, message in messages %}
+        <p class="ui {{ category }} message">{{ message }}</p>
+      {% endfor %}
+
+    {% endif %}
+  {% endwith %}
+
+    {% block content %}
+    {% endblock content %}
+>>>>>>> d1c092a5e56101e9d3d742ce3b7e32581adc8a0c
 <script
     src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -78,8 +102,11 @@
     <!-- <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script> -->
 </body>
 </html>
+<<<<<<< HEAD
 =======
     <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script>
 </body>
 </html>
 >>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
+=======
+>>>>>>> d1c092a5e56101e9d3d742ce3b7e32581adc8a0c

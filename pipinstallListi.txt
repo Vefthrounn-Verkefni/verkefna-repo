@@ -7,7 +7,11 @@ flask_login
 pymysql
 cryptography
 <<<<<<< HEAD
+<<<<<<< HEAD
 mysql-connector-python
 =======
 mysql-connector-python
 >>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
+=======
+mysql-connector-python
+>>>>>>> d1c092a5e56101e9d3d742ce3b7e32581adc8a0c
