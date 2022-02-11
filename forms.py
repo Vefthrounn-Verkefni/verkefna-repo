@@ -15,7 +15,3 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators = [DataRequired()])
     password = PasswordField('Password', validators = [DataRequired()])
     
-<<<<<<< HEAD
-=======
-    
->>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
