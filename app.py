@@ -1,5 +1,8 @@
 
+<<<<<<< HEAD
 from pydoc import describe
+=======
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
 from flask import Flask, render_template, request,redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -26,7 +29,11 @@ login_manager.login_view = "login"
 def load_user(user_id):
     return UserModel.query.get(int(user_id))
 
+<<<<<<< HEAD
 # SQL model fyrir User
+=======
+# sql model fyrir user
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
 class UserModel(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
@@ -49,6 +56,7 @@ class UserModel(db.Model,UserMixin):
     def __repr__(self):
         return "<Name %r>" % self.name
 
+<<<<<<< HEAD
 class ClothingModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     describtion = db.Column(db.String(220))
@@ -56,6 +64,8 @@ class ClothingModel(db.Model):
     image_link = db.Column(db.String(),nullable=False)
 
 
+=======
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
@@ -74,12 +84,21 @@ def login():
         if user:
             if check_password_hash(user.password_hash,loginForm.password.data):
                 login_user(user)
+<<<<<<< HEAD
                 flash("Logged In","success")
                 return redirect(url_for("dashboard"))
             else: 
                 flash("Incorrect password","negative")
         else:
             flash(f"User {loginForm.username.data} doesn't exist","negative")
+=======
+                flash("Logged In")
+                return redirect(url_for("dashboard"))
+            else: 
+                flash("Incorrect password")
+        else:
+            flash(f"User {loginForm.username.data} doesn't exist")
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
 
     return render_template("login.html",form=loginForm)
 
@@ -87,7 +106,11 @@ def login():
 @login_required
 def logout():
     logout_user()
+<<<<<<< HEAD
     flash("You Have Logged out","blue")
+=======
+    flash("You Have Logged out")
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
     return redirect(url_for("index"))
 
 @app.route("/create_user",methods=["GET","POST"])
@@ -97,9 +120,15 @@ def create_user():
         userEmail = UserModel.query.filter_by(email=signUpForm.email.data).first() 
         userUsername = UserModel.query.filter_by(username=signUpForm.username.data).first() 
         if userEmail:
+<<<<<<< HEAD
             flash("Email in use","yellow")
         if userUsername:
             flash("Username in use","yellow")
+=======
+            flash("Email in use")
+        if userUsername:
+            flash("Username in use")
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
         if userUsername  == None and userEmail == None:
             hashed_password = generate_password_hash(signUpForm.password.data,"sha256")
             user = UserModel(   name=signUpForm.name.data,
@@ -112,7 +141,11 @@ def create_user():
             name=signUpForm.name.data = ""
             username=signUpForm.username.data = ""
             email=signUpForm.email.data = ""
+<<<<<<< HEAD
             flash("User added","success")
+=======
+            flash("User added")
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
 
     return render_template("CreateUser.html",form=signUpForm)
 
@@ -126,7 +159,15 @@ def page_not_found(e):
 
 @app.errorhandler(401)
 def page_not_found(e):
+<<<<<<< HEAD
     flash("You Dont have premission to enter this page please log in","negative")
     return redirect("/login") 
 if __name__ == "__main__":
     app.run(debug=True)
+=======
+    flash("You Dont have premission to enter this page please log in")
+    return redirect("/login") 
+if __name__ == "__main__":
+    app.run(debug=True)
+    
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2

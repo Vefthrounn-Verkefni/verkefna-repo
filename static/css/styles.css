@@ -34,4 +34,15 @@ body {
   /* Change the link color to #111 (black) on hover */
 .navbar a:hover {
     background-color: #111;
+<<<<<<< HEAD
   }
+=======
+  }
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+>>>>>>> b2368efc24928e02e8c72c2403bbca619674efd2
