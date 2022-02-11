@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block titill %} Sign Up {% endblock %}
+
+{% block content %}
+    <div>
+        <form action="" method="POST">
+            {{form.hidden_tag()}}
+            name {{form.name}}
+            Username {{form.username}}
+            Email {{form.email}}
+            Password {{form.password}}
+            Confirm Password {{form.password2}}
+
+            <input type="submit" value="Create User">
+        </form>
+    </div>
+{% endblock content %}

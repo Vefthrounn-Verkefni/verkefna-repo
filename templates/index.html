@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block titill %} Home {% endblock %}
+
+{% block content %}
+    
+<div>
+    
+    {% for user in users%}
+    <div>
+        ----------------------
+        <h4>ID - {{user.id}}</h4>
+        <h4>Name - {{user.name}}</h4>
+        <h4>Email - {{user.email}}</h4>
+        <h4>Password - {{user.password_hash}}</h4>
+        ----------------------
+    </div>
+    {% endfor %}
+    
+</div>
+
+{% endblock content %}

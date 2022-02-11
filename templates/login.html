@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block titill %} Login {% endblock %}
+
+{% block content %}
+
+    <div>
+        <form action="" method="POST">
+            {{form.hidden_tag()}}
+            Username {{form.username}}
+            Password {{form.password}}
+            <input type="submit" value="Log In">
+        </form>
+
+
+    </div>
+
+{% endblock content %}
