@@ -48,7 +48,6 @@ class UserModel(db.Model,UserMixin):
     def __repr__(self):
         return "<Name %r>" % self.name
 
-
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
