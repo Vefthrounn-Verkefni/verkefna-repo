@@ -22,17 +22,19 @@
             <li><a href="{{ url_for('dashboard') }}">{{current_user.username}}</a></li>
              {% endif %}
 
-
-        </ul>
     </div>    
 </header>
 <body>
-    {% for message in get_flashed_messages() %}
-    <div class="ui message">
-            {{message}}
-      </div>
-    {% endfor %}  
-  
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    
+      {% for category, message in messages %}
+        <p class="ui {{ category }} message">{{ message }}</p>
+      {% endfor %}
+
+    {% endif %}
+  {% endwith %}
+
     {% block content %}
     {% endblock content %}
 <script
