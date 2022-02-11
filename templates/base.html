@@ -31,12 +31,15 @@
     </div>    
 </header>
 <body>
-    {% for message in get_flashed_messages() %}
-    <div class="ui message">
-        
-            {{message}}
-      </div>
-    {% endfor %}  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+      {% for category, message in messages %}
+          <div class="ui {{ category }} message">
+              <span>{{ message }}</span>
+              </button>
+          </div>
+      {% endfor %}
+  {% endif %}
   
     {% block content %}
     {% endblock content %}
