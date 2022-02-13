@@ -37,11 +37,13 @@ body {
 
 }
 
-form {
+.form {
   display: flex;
+  height: 300px;
   justify-content: center;
   align-items: center;
-  margin: 1em 2em 1em;
+  flex-wrap: wrap;
+  margin: 1em 40em 2em;
 }
 
 
