@@ -7,6 +7,7 @@
     <!--<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}">-->
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.png') }}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='semantic_ui/semantic.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}">
 
     <title>{% block titill %}{% endblock titill %}</title>
 </head>
@@ -31,12 +32,16 @@
     </div>    
 </header>
 <body>
-    {% for message in get_flashed_messages() %}
-    <div class="ui message">
-        
-            {{message}}
-      </div>
-    {% endfor %}  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+      {% for category, message in messages %}
+          <div class="ui {{ category }} message">
+              <span>{{ message }}</span>
+              </button>
+          </div>
+      {% endfor %}
+  {% endif %}
+  {% endwith %}
   
     {% block content %}
     {% endblock content %}
