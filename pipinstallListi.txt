@@ -1,5 +1,5 @@
 flask
-flask_wtforms
+flask_wtf
 wtforms
 flask_sqlalchemy
 flask_login
