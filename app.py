@@ -30,9 +30,10 @@ class UserModel(db.Model,UserMixin):
     name = db.Column(db.String(120), nullable=False)
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(120), nullable=False, unique=True)
+    bio = db.Column(db.String(400), nullable=False,default="")
+    profile_picture = db.Column(db.String(400),default="n/a")
     date_added = db.Column(db.DateTime,default=datetime.utcnow())
     password_hash = db.Column(db.String(128), nullable=False)
-
     @property
     def password(self):
         raise AttributeError("Password is not a readable attribute")
@@ -56,7 +57,6 @@ def index():
 @login_required
 def dashboard():
     return render_template("userDashboard.html",)
-    
 @app.route("/login",methods=["GET","POST"])
 def login():
     loginForm = LoginForm()
