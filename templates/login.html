@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+<<<<<<< HEAD
 {% block titill %}Forsíða{% endblock %}
 
 {% block innihald %}
@@ -13,3 +14,28 @@
     </form>
     
 {% endblock %}
+=======
+{% block titill %} Login {% endblock %}
+
+{% block content %}
+
+    <div>
+        <form action="" method="POST" class="ui form">
+            {{form.hidden_tag()}}
+            <div class="field">
+                <label>Username</label> 
+                {{form.username}}
+            </div>
+            <div class="field">
+                <label>Password</label>
+                {{form.password}}
+            </div>
+
+            <input class="ui button" type="submit" value="Log In">
+        </form>
+
+
+    </div>
+
+{% endblock content %}
+>>>>>>> develop

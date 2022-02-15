@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block titill %} {{current_user.username }} - Profile {% endblock %}
+
+{% block content %}
+
+    <h1>Profile</h1>
+    <div>
+        <span>Name</span>: {{current_user.name }} <br>
+        <span>Username</span>: {{current_user.username }} <br>
+        <span>Email</span>: {{current_user.email }} <br><br><br>
+        <a class="ui primary button" href="{{ url_for('logout')}}">user settings</a>
+        <a class="ui button" href="{{ url_for('logout')}}">Log Out</a>
+        {% if current_user.profile_picture == "n/a" %}
+        <img src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}" alt="deafult profile picture">
+        {% endif %}
+    </div>
+{% endblock content %}
