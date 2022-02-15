@@ -34,4 +34,26 @@ body {
   /* Change the link color to #111 (black) on hover */
 .navbar a:hover {
     background-color: #111;
-  }
+
+}
+
+form {
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 1em 40em 2em;
+}
+
+
+
+@media screen and (min-width: 48em) {
+  
+}
+
+@media screen and (min-width: 60em) {
+  
+}
+
+
