@@ -46,14 +46,16 @@ form {
   margin: 1em 40em 2em;
 }
 
-
-
-@media screen and (min-width: 48em) {
-  
+.post {
+  display: flex;
 }
 
-@media screen and (min-width: 60em) {
-  
+
+
+@media (max-width: 767px) {                  
+  .content-to-hide {
+     display: none;
+  }
 }
 
 

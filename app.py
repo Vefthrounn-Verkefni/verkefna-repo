@@ -132,6 +132,11 @@ def logout():
 def page_not_found(e):
     return redirect("/") # gera custom page seinna
 
+
+@app.route("/whatToWear")
+def whatToWear():
+    return render_template("whatShouldWear.html")
+
 @app.errorhandler(500)
 def page_not_found(e):
     return redirect("/") # gera custom page seinna
