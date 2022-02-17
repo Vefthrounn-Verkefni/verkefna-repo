@@ -13,9 +13,21 @@
 </head>
 <header>
     <div class="ui menu">
-        <div class="item ui sidebar">
+        <button class="item">
             <i class="align justify icon"></i>
-            
+        </button>
+        <div class="ui sidebar inverted 
+                        vertical menu">
+            <h2 style="color:white">Menu</h2>
+            <a class="item">
+                Data Structure
+            </a>
+            <a class="item">
+                Web Designing
+            </a>
+            <a class="item">
+                Basic programming
+            </a>
         </div>
         <a class="item" href="{{ url_for('index') }}">Home</a>
         <div class="right menu">
@@ -37,25 +49,31 @@
     </div>    
 </header>
 <body>
-  {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+     {% if messages %}
       {% for category, message in messages %}
           <div class="ui {{ category }} message">
               <span>{{ message }}</span>
               </button>
           </div>
       {% endfor %}
-  {% endif %}
-  {% endwith %}
+    {% endif %}
+    {% endwith %}
   
     {% block content %}
     {% endblock content %}
-<script
-    src="https://code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous"></script>
-  <script src="semantic/dist/semantic.min.js"></script>
-  <script src="{{url_for('static', filename='semantic_ui/semantic.min.js')}}"></script>
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+    </script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="{{url_for('static', filename='semantic_ui/semantic.min.js')}}"></script>
+    <script>
+        $('button').click(function () {
+            $('.ui.sidebar').sidebar('toggle');
+        })
+    </script>
     <!-- <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script> -->
 </body>
 </html>
