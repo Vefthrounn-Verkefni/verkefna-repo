@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin, login_required,login_user,LoginManager,logout_user,current_user
-from forms import CreateUser, LoginForm
+from forms import CreateUser, LoginForm,EditUser
 
 
 # Flask Uppseting
@@ -107,6 +107,17 @@ def create_user():
 
     return render_template("CreateUser.html",form=signUpForm)
 
+@app.route("/editUser",methods=["GET","POST"])
+@login_required
+def edit_user():
+    edit_userForm = EditUser()
+    return render_template("userSettings.html",form=edit_userForm)
+
+@login_required
+def logout():
+    logout_user()
+    flash("You Have Logged out","blue")
+    return redirect(url_for("index"))
 @app.errorhandler(404)
 def page_not_found(e):
     return redirect("/") # gera custom page seinna
