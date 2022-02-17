@@ -1,4 +1,5 @@
 from email import message
+from email.mime import image
 from optparse import Values
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField,FileField
@@ -22,3 +23,6 @@ class EditUser(FlaskForm):
     email = StringField("Email",validators = [DataRequired()])
     bio = StringField("Bio")
     profile_picture = FileField("Your profile picture")
+
+class uploadImage(FlaskForm):
+    image = FileField("Your profile picture")

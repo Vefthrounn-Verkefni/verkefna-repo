@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block titill %} Sign Up {% endblock %}
+
+{% block content %}
+    <div>
+        <form action="" method="POST" class="ui form">
+            {{form.hidden_tag()}}
+            {{form.image}}
+            <input type="submit" value="submit">
+        </form>
+    </div>
+    <img src="static/img/testimage.jpg" alt="img">
+{% endblock content %}
