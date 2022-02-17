@@ -57,6 +57,7 @@ def index():
 @login_required
 def dashboard():
     return render_template("userDashboard.html",)
+
 @app.route("/login",methods=["GET","POST"])
 def login():
     loginForm = LoginForm()
@@ -111,6 +112,15 @@ def create_user():
 @login_required
 def edit_user():
     edit_userForm = EditUser()
+    if edit_userForm.validate_on_submit():
+        logged_user = UserModel.query.get(current_user.id)
+        logged_user.id  = current_user.id
+        logged_user.username = edit_userForm.username.data
+        logged_user.name = edit_userForm.name.data
+        logged_user.email = edit_userForm.email.data
+        logged_user.bio = edit_userForm.bio.data
+        db.session.commit()
+        return redirect(url_for("dashboard"))
     return render_template("userSettings.html",form=edit_userForm)
 
 @login_required

@@ -20,4 +20,4 @@ class EditUser(FlaskForm):
     name = StringField("Full Name",validators = [DataRequired()])
     username = StringField('Username', validators = [DataRequired()])
     email = StringField("Email",validators = [DataRequired()])
-    bio = StringField("Bio",validators = [DataRequired()])
+    bio = StringField("Bio")
