@@ -11,8 +11,8 @@
 
     <title>{% block titill %}{% endblock titill %}</title>
 </head>
-<header>
-    <div class="ui menu">
+<header class="ui">
+    <div class="ui inverted menu">
         <button class="item">
             <i class="align justify icon"></i>
         </button>
@@ -31,7 +31,7 @@
         </div>
         <a class="item" href="{{ url_for('index') }}">Home</a>
         <div class="right menu">
-            <div class="item">
+            <div class="item ui computer only grid">
                 <div class="ui icon input">
                 <input type="text" placeholder="Search...">
                 <i class="search link icon"></i>
