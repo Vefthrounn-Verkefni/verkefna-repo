@@ -115,9 +115,10 @@ def create_user():
                             )
             db.session.add(user)
             db.session.commit()
-            name=signUpForm.name.data = ""
-            username=signUpForm.username.data = ""
-            email=signUpForm.email.data = ""
+
+            signUpForm.name.data = ""
+            signUpForm.username.data = ""
+            signUpForm.email.data = ""
 
             flash("User added","success")
             login_user(user)
