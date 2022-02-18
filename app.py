@@ -42,10 +42,6 @@ class UserModel(db.Model,UserMixin):
 
     def __repr__(self):
         return "<Name %r>" % self.name
-<<<<<<< HEAD
-
-# Forsíða
-=======
 """ 
 class ClothingModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -53,7 +49,6 @@ class ClothingModel(db.Model):
     type = db.Column(db.String(10), nullable=False)
     image_link = db.Column(db.String(),nullable=False)
 """
->>>>>>> 2a4b7fb3d84843328e93bd922ae838acb35276e9
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
