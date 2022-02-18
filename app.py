@@ -39,20 +39,21 @@ class UserModel(db.Model,UserMixin):
     profile_picture = db.Column(db.String(400),default="n/a")
     date_added = db.Column(db.DateTime,default=datetime.utcnow())
     password_hash = db.Column(db.String(128), nullable=False)
-    @property
-    def password(self):
-        raise AttributeError("Password is not a readable attribute")
-    @password.setter
-    def password(self,password):
-        self.password_hash = generate_password_hash(password)
-
-    def verify_password(self,password):
-        return check_password_hash(self.password_hash,password)
 
     def __repr__(self):
         return "<Name %r>" % self.name
+<<<<<<< HEAD
 
 # Forsíða
+=======
+""" 
+class ClothingModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    describtion = db.Column(db.String(220))
+    type = db.Column(db.String(10), nullable=False)
+    image_link = db.Column(db.String(),nullable=False)
+"""
+>>>>>>> 2a4b7fb3d84843328e93bd922ae838acb35276e9
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
@@ -109,7 +110,11 @@ def create_user():
             name=signUpForm.name.data = ""
             username=signUpForm.username.data = ""
             email=signUpForm.email.data = ""
+
             flash("User added","success")
+            login_user(user)
+
+            return redirect("dashboard")
 
     return render_template("CreateUser.html",form=signUpForm)
 
