@@ -1,14 +1,19 @@
+from json.encoder import py_encode_basestring_ascii
 from flask import Flask, render_template, request,redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin, login_required,login_user,LoginManager,logout_user,current_user
-from forms import CreateUser, LoginForm
-
+from forms import CreateUser, LoginForm,EditUser
+from werkzeug.utils import secure_filename
+import uuid as uuid
+import os
 
 # Flask Uppseting
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "password"
+UPLOAD_FOLDER = "static/profile_data/"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 # Sqlalchemy uppsetning
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/database.db"
@@ -34,20 +39,21 @@ class UserModel(db.Model,UserMixin):
     profile_picture = db.Column(db.String(400),default="n/a")
     date_added = db.Column(db.DateTime,default=datetime.utcnow())
     password_hash = db.Column(db.String(128), nullable=False)
-    @property
-    def password(self):
-        raise AttributeError("Password is not a readable attribute")
-
-    @password.setter
-    def password(self,password):
-        self.password_hash = generate_password_hash(password)
-
-    def verify_password(self,password):
-        return check_password_hash(self.password_hash,password)
 
     def __repr__(self):
         return "<Name %r>" % self.name
+<<<<<<< HEAD
 
+# Forsíða
+=======
+""" 
+class ClothingModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    describtion = db.Column(db.String(220))
+    type = db.Column(db.String(10), nullable=False)
+    image_link = db.Column(db.String(),nullable=False)
+"""
+>>>>>>> 2a4b7fb3d84843328e93bd922ae838acb35276e9
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
@@ -57,6 +63,7 @@ def index():
 @login_required
 def dashboard():
     return render_template("userDashboard.html",)
+
 @app.route("/login",methods=["GET","POST"])
 def login():
     loginForm = LoginForm()
@@ -103,13 +110,49 @@ def create_user():
             name=signUpForm.name.data = ""
             username=signUpForm.username.data = ""
             email=signUpForm.email.data = ""
+
             flash("User added","success")
+            login_user(user)
+
+            return redirect("dashboard")
 
     return render_template("CreateUser.html",form=signUpForm)
+
+@app.route("/editUser",methods=["GET","POST"])
+@login_required
+def edit_user():
+    edit_userForm = EditUser()
+    if edit_userForm.validate_on_submit():
+        logged_user = UserModel.query.get(current_user.id)
+        logged_user.id  = current_user.id
+        logged_user.username = edit_userForm.username.data
+        logged_user.name = edit_userForm.name.data
+        logged_user.email = edit_userForm.email.data
+        logged_user.bio = edit_userForm.bio.data
+        if edit_userForm.profile_picture != None:
+            profile_pic = edit_userForm.profile_picture.data
+            pic_filename = secure_filename(profile_pic.filename)
+            pic_name = str(uuid.uuid1()) + "_" + pic_filename
+            profile_pic.save(os.path.join(app.config["UPLOAD_FOLDER"],pic_name))
+            logged_user.profile_picture = pic_name
+        db.session.commit()
+        return redirect(url_for("dashboard"))
+    return render_template("userSettings.html",form=edit_userForm)
+
+@login_required
+def logout():
+    logout_user()
+    flash("You Have Logged out","blue")
+    return redirect(url_for("index"))
 
 @app.errorhandler(404)
 def page_not_found(e):
     return redirect("/") # gera custom page seinna
+
+
+@app.route("/whatToWear")
+def whatToWear():
+    return render_template("whatShouldWear.html")
 
 @app.errorhandler(500)
 def page_not_found(e):
