@@ -17,7 +17,7 @@
         {% if current_user.profile_picture == "n/a" %}
             <img src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}" alt="deafult profile picture" width="200">
         {% else %}
-            <img src="{{ url_for('static', filename='profile_data/' + current_user.profile_picture) }}" alt="deafult profile picture" width="200"> 
+            <img src="{{ url_for('static', filename='profile_data/'+current_user.id|string() + '_' + current_user.username+'/'+ current_user.profile_picture) }}" alt="deafult profile picture" width="200"> 
         {% endif %}
         
     </div>

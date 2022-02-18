@@ -47,7 +47,7 @@
                   {% if current_user.profile_picture == "n/a" %}
                     <img class="ui avatar image" src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}"  width="200">
                   {% else %}
-                    <img class="ui avatar image" src="{{ url_for('static', filename='profile_data/' + current_user.profile_picture) }}"  width="200"> 
+                    <img class="ui avatar image" src="{{ url_for('static', filename='profile_data/'+current_user.id|string() + '_' + current_user.username+'/'+ current_user.profile_picture) }}"  width="200"> 
                   {% endif %}</a>
               {% endif %}
         </div>
