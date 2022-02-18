@@ -8,11 +8,13 @@ from forms import CreateUser, LoginForm,EditUser
 from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
+
 # Flask Uppseting
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "password"
 UPLOAD_FOLDER = "static/profile_data/"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
 # Sqlalchemy uppsetning
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/database.db"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:password123@localhost/flask_database"
@@ -50,6 +52,7 @@ class UserModel(db.Model,UserMixin):
     def __repr__(self):
         return "<Name %r>" % self.name
 
+# Forsíða
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
