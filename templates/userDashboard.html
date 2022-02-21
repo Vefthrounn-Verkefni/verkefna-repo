@@ -21,4 +21,14 @@
         {% endif %}
         
     </div>
+    <div>
+        <h1>My Clothing</h1>
+        <div>
+            {% for item in clothing%}
+                <h3>{{item.type}}</h3>
+                <img src="{{url_for('static',filename='clothes_images/'+ item.image_link)}}" alt="" >
+                
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}
