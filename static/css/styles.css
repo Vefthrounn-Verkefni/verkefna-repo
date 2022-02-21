@@ -37,25 +37,14 @@ body {
 
 }
 
-form {
+.center-form {
   display: flex;
   height: 300px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin: 1em 40em 2em;
 }
 
 .post {
   display: flex;
 }
-
-
-
-@media (max-width: 767px) {                  
-  .content-to-hide {
-     display: none;
-  }
-}
-
-

@@ -11,8 +11,8 @@
 
     <title>{% block titill %}{% endblock titill %}</title>
 </head>
-<header>
-    <div class="ui menu">
+<header class="ui">
+    <div class="ui inverted menu">
         <button1 class="item">
             <i class="align justify icon"></i>
         </button1>
@@ -42,9 +42,14 @@
                 <a class="item" href="{{ url_for('login') }}">Log In</a>
                 {% endif %}
 
-                {% if current_user.is_authenticated%}
-                <a class="item avatar image" href="{{ url_for('dashboard') }}">{{current_user.username}} &nbsp;<img class="ui avatar image" src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}"></a>
-                {% endif %}
+              {% if current_user.is_authenticated%}
+                <a class="item avatar image" href="{{ url_for('dashboard') }}">{{current_user.username}} &nbsp;        
+                  {% if current_user.profile_picture == "n/a" %}
+                    <img class="ui avatar image" src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}"  width="200">
+                  {% else %}
+                    <img class="ui avatar image" src="{{ url_for('static', filename='profile_data/' + current_user.profile_picture) }}"  width="200"> 
+                  {% endif %}</a>
+              {% endif %}
         </div>
     </div>    
 </header>

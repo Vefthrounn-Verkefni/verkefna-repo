@@ -9,12 +9,15 @@
         <span>Name</span>: {{current_user.name }} <br>
         <span>Username</span>: {{current_user.username }} <br>
         <span>Email</span>: {{current_user.email }} <br>
+        <span>Picture filename</span>: {{current_user.profile_picture}} <br>
         <span>Bio</span>: {{current_user.bio }} <br><br><br>
-        
+
         <a class="ui primary button" href="{{ url_for('edit_user')}}">user settings</a>
         <a class="ui button" href="{{ url_for('logout')}}">Log Out</a>
         {% if current_user.profile_picture == "n/a" %}
-        <img src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}" alt="deafult profile picture">
+            <img src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}" alt="deafult profile picture" width="200">
+        {% else %}
+            <img src="{{ url_for('static', filename='profile_data/' + current_user.profile_picture) }}" alt="deafult profile picture" width="200"> 
         {% endif %}
         
     </div>

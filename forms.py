@@ -1,7 +1,7 @@
 from email import message
 from optparse import Values
 from flask_wtf import FlaskForm
-from wtforms import Form, BooleanField, StringField, PasswordField
+from wtforms import Form, BooleanField, StringField, PasswordField,FileField
 from wtforms.validators import DataRequired,EqualTo,Length
 
 
@@ -21,3 +21,4 @@ class EditUser(FlaskForm):
     username = StringField('Username', validators = [DataRequired()])
     email = StringField("Email",validators = [DataRequired()])
     bio = StringField("Bio")
+    profile_picture = FileField("Your profile picture")
