@@ -13,20 +13,33 @@
 </head>
 <header class="ui">
     <div class="ui inverted menu">
-        <button1 class="item">
+
+        <button class="item">
             <i class="align justify icon"></i>
         </button1>
         <div class="ui sidebar inverted 
-                        vertical menu">
+                        vertical menu mobile only grid">
             <h2 style="color:white">Menu</h2>
-            <a class="item" href="{{ url_for('whatToWear') }}">
-                What Should I Wear
+            
+            <a class="item">
+                Search
             </a>
             <a class="item">
-                Web Designing
+                Discover
             </a>
             <a class="item">
-                Basic programming
+                What should I wear
+            </a>
+        </div>
+                <div class="ui sidebar inverted 
+                        vertical menu computer only grid">
+            <h2 style="color:white">Menu</h2>
+            
+            <a class="item">
+                Discover
+            </a>
+            <a class="item">
+                What should I wear
             </a>
         </div>
         <a class="item" href="{{ url_for('index') }}">Home</a>
@@ -47,7 +60,7 @@
                   {% if current_user.profile_picture == "n/a" %}
                     <img class="ui avatar image" src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}"  width="200">
                   {% else %}
-                    <img class="ui avatar image" src="{{ url_for('static', filename='profile_data/' + current_user.profile_picture) }}"  width="200"> 
+                    <img class="ui avatar image" src="{{ url_for('static', filename='profile_data/'+current_user.id|string() + '_' + current_user.username+'/'+ current_user.profile_picture) }}"  width="200"> 
                   {% endif %}</a>
               {% endif %}
         </div>

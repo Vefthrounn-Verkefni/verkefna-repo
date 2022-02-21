@@ -15,6 +15,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "password"
 UPLOAD_FOLDER = "static/profile_data/"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
 # Sqlalchemy uppsetning
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database/database.db"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:password123@localhost/flask_database"
@@ -108,6 +109,8 @@ def create_user():
                             )
             db.session.add(user)
             db.session.commit()
+            path = os.path.join(app.config["UPLOAD_FOLDER"],f"{user.id}_{user.username}")
+            os.mkdir(path)
             name=signUpForm.name.data = ""
             username=signUpForm.username.data = ""
             email=signUpForm.email.data = ""
@@ -134,7 +137,7 @@ def edit_user():
             profile_pic = edit_userForm.profile_picture.data
             pic_filename = secure_filename(profile_pic.filename)
             pic_name = str(uuid.uuid1()) + "_" + pic_filename
-            profile_pic.save(os.path.join(app.config["UPLOAD_FOLDER"],pic_name))
+            profile_pic.save(os.path.join(app.config["UPLOAD_FOLDER"]+str(current_user.id)+"_"+str(current_user.username),pic_name))
             logged_user.profile_picture = pic_name
         db.session.commit()
         return redirect(url_for("dashboard"))
