@@ -3,9 +3,10 @@ from unicodedata import name
 from flask import Flask, render_template, request,redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy import ForeignKey
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import UserMixin, login_required,login_user,LoginManager,logout_user,current_user
-from forms import CreateUser, LoginForm,EditUser
+from forms import CreateUser, LoginForm,EditUser,addClothing
 from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
@@ -38,6 +39,8 @@ def load_user(user_id):
     return UserModel.query.get(int(user_id))
 
 # SQL model fyrir User
+
+
 class UserModel(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
@@ -47,16 +50,19 @@ class UserModel(db.Model,UserMixin):
     profile_picture = db.Column(db.String(400),default="n/a")
     date_added = db.Column(db.DateTime,default=datetime.utcnow())
     password_hash = db.Column(db.String(128), nullable=False)
-
+    clothings = db.relationship("ClothingModel",backref="user")
     def __repr__(self):
         return "<Name %r>" % self.name
-""" 
+
 class ClothingModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     describtion = db.Column(db.String(220))
     type = db.Column(db.String(10), nullable=False)
-    image_link = db.Column(db.String(),nullable=False)
-"""
+    image_link = db.Column(db.String(400),nullable=False)
+    user_id  = db.Column(db.Integer,db.ForeignKey(UserModel.id))
+    
+
+
 @app.route("/",methods=["GET","POST"])
 def index():
     users = UserModel.query.all()
@@ -65,7 +71,8 @@ def index():
 @app.route("/dashboard",methods=["GET","POST"])
 @login_required
 def dashboard():
-    return render_template("userDashboard.html",)
+    userClothes = current_user.clothings
+    return render_template("userDashboard.html",clothing=userClothes)
 
 @app.route("/login",methods=["GET","POST"])
 def login():
@@ -149,7 +156,28 @@ def logout():
     logout_user()
     flash("You Have Logged out","blue")
     return redirect(url_for("index"))
+@app.route("/addClothing",methods=["GET","POST"])
+def addNewClothing():
+    addClothingForm = addClothing()
+    if addClothingForm.validate_on_submit():
+        picture = addClothingForm.picture.data
+        picture_filename = secure_filename(picture.filename)
+        picture_name = str(uuid.uuid1()) + "_" + picture_filename
+        picture.save(os.path.join("static\clothes_images",picture_name))
+        
+        clothing = ClothingModel(
+                                type = addClothingForm.type.data,
+                                describtion = addClothingForm.description.data,
+                                image_link = picture_name,
+                                user_id = current_user.id
+                                )
 
+        db.session.add(clothing)
+        db.session.commit()
+        return redirect(url_for("dashboard"))
+
+    return render_template("addClothing.html",form=addClothingForm)   
+    
 @app.errorhandler(404)
 def page_not_found(e):
     return redirect("/") # gera custom page seinna
