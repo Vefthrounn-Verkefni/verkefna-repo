@@ -11,6 +11,7 @@ from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
 import json
+import shutil
 
 # Flask Uppseting
 app = Flask(__name__)
@@ -96,6 +97,20 @@ def login():
 def logout():
     logout_user()
     flash("You Have Logged out","blue")
+    return redirect(url_for("index"))
+
+@app.route("/delete_current_user",methods=["GET"])
+@login_required
+def delete_user():
+    user_delete = current_user
+    shutil.rmtree(app.config["UPLOAD_FOLDER"]+f"{current_user.id}_{current_user.username}")
+    db.session.delete(user_delete)
+    user_delete_clothing = user_delete.clothings
+    for item in user_delete_clothing:  
+        db.session.delete(item)
+        os.remove(f"static/clothes_images/{item.image_link}")
+    db.session.commit()
+    flash(f"user: {user_delete.username} deleted","red")
     return redirect(url_for("index"))
 
 @app.route("/create_user",methods=["GET","POST"])
