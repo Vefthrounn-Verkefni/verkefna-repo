@@ -23,7 +23,7 @@ class EditUser(FlaskForm):
     bio = StringField("Bio")
     profile_picture = FileField("Your profile picture")
 class addClothing(FlaskForm):
-    types = ["Hat","shirt","jacket","gloves","pants","shorts","shoes","socks"]
+    types = ["hat","shirt","jacket","gloves","pants","shorts","shoes","socks"]
     type = SelectField(u'Field name', choices = types, validators = [DataRequired()])
     description = StringField("description")
     picture = FileField("Clothing picture",validators = [DataRequired()])

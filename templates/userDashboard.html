@@ -5,12 +5,22 @@
 {% block content %}
 
     <h1>Profile</h1>
-    <div class="center-form">
-        <span>Name</span>: {{current_user.name }} <br>
-        <span>Username</span>: {{current_user.username }} <br>
-        <span>Email</span>: {{current_user.email }} <br>
-        <span>Picture filename</span>: {{current_user.profile_picture}} <br>
-        <span>Bio</span>: {{current_user.bio }} <br><br><br>
+    <div class="left-form ui list">
+        <div class="item">
+          <div class="header">Name</div>
+          {{current_user.name }}
+        </div>
+        <div class="item">
+          <div class="header">Username</div>
+          {{current_user.username }} 
+        </div>
+        <div class="item">
+          <div class="header">Bio</div>
+          {{current_user.bio }}
+        </div>
+
+      </div>
+    <div class="right-form">
 
         <a class="ui primary button" href="{{ url_for('edit_user')}}">user settings</a>
         <a class="ui button" href="{{ url_for('logout')}}">Log Out</a>
@@ -21,6 +31,7 @@
         {% endif %}
         
     </div>
+<br><br><br>
     <div>
         <h1>My Clothing</h1>
         <div>
@@ -36,6 +47,7 @@
                       <div class="description">
                         {{item.describtion}}
                       </div>
+                      <a class="ui mini right floated red button" href="/deleteClothing/{{item.id}}">Delete</a>
                     </div>
                   </div>
             {% endfor %}
