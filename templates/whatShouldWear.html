@@ -8,7 +8,8 @@
         {% for i in styles %}
             <div class="column">
                 <div class="ui segment">
-                    <a href=""><img src="{{ i['img'] }}" alt="" class="ui fluid rounded image"></a>
+                    <h1 class="ui center aligned header">{{ i['name'] }}</h1>
+                    <a href="/outfitStyle/{{ i['name'] }}"><img src="{{ i['img'] }}" alt="" class="ui fluid rounded image"></a>
                 </div>
             </div>
         {% endfor %}

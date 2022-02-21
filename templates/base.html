@@ -13,32 +13,18 @@
 </head>
 <header class="ui">
     <div class="ui inverted menu">
-
-        <button class="item">
+        <button1 class="item">
             <i class="align justify icon"></i>
         </button1>
-        <div class="ui sidebar inverted 
-                        vertical menu mobile only grid">
+        <div class="ui sidebar inverted vertical menu">
             <h2 style="color:white">Menu</h2>
-            
             <a class="item">
                 Search
             </a>
             <a class="item">
                 Discover
             </a>
-            <a class="item">
-                What should I wear
-            </a>
-        </div>
-                <div class="ui sidebar inverted 
-                        vertical menu computer only grid">
-            <h2 style="color:white">Menu</h2>
-            
-            <a class="item">
-                Discover
-            </a>
-            <a class="item">
+            <a class="item" href="{{ url_for('whatToWear') }}">
                 What should I wear
             </a>
         </div>

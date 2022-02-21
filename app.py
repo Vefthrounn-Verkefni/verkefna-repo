@@ -1,4 +1,5 @@
 from json.encoder import py_encode_basestring_ascii
+from unicodedata import name
 from flask import Flask, render_template, request,redirect, url_for,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -158,6 +159,18 @@ def page_not_found(e):
 def whatToWear():
     
     return render_template("whatShouldWear.html", styles = outfitStyles)
+
+
+@app.route("/outfitStyle/<string>")
+def outfit(string):
+    for i in range(len(outfitStyles)):
+        if outfitStyles[i]["name"] == string:
+            info = outfitStyles[i]
+    
+    return render_template("outfitStyle.html", gogn = info, name = string)
+
+
+
 
 @app.errorhandler(500)
 def page_not_found(e):
