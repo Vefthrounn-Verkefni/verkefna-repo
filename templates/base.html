@@ -30,10 +30,10 @@
         <a class="item" href="{{ url_for('index') }}">Home</a>
         <div class="right menu">
             <div class="item">
-                <div class="ui icon input">
-                        <input type="text" placeholder="Search...">
-                        <i class="search icon"></i>
-                </div>
+                <form class="ui icon input" id="search" >
+                        <input type="text" placeholder="Search..." id='searchText'>
+                        <i class="search icon" type='submit' value='Search' ></i>
+                </form>
             </div>
                 {% if current_user.is_authenticated == False%}
                 <a class="item" href="{{ url_for('create_user') }}">Sign Up</a>
@@ -86,6 +86,17 @@
             $('.ui.sidebar').sidebar('toggle');
         })
         $('.ui.sticky') .sticky();
+    </script>
+    <script>
+        search = document.getElementById("search").addEventListener("submit",(e)=>{
+            searchData = e.target.children[0].value
+            console.log(location)
+
+            location.replace(location.origin);
+            setTimeout(function(){location.replace(location.origin);},500);
+            
+            return false;
+        });
     </script>
     
 </body>
