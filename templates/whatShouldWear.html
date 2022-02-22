@@ -4,6 +4,20 @@
 
 {% block content %}
     
-    <h1>hallo heimur</h1>
+    <div class="ui three column grid">
+        {% for i in styles %}
+            <div class="column">
+                <div class="ui segment">
+                    <h1 class="ui center aligned header">{{ i['name'] }}</h1>
+                    <a href="/outfitStyle/{{ i['name'] }}"><img src="{{ i['img'] }}" alt="" class="ui fluid rounded image"></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
+    <style>
+        img:hover{
+            opacity: 0.5;
+        }
+    </style>
 {% endblock content %}
