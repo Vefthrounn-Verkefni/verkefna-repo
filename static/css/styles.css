@@ -9,6 +9,9 @@ footer{
   width: 100%;
   text-align: center
 }
+.post-container{
+  margin: 6em;
+}
 .ui.fixed.sticky + body {
   margin-top: 39px;
 }
@@ -58,4 +61,7 @@ footer{
 
 .post {
   display: flex;
+}
+.hidden {
+  display: none;
 }
