@@ -1,15 +1,13 @@
-from email import message
-from optparse import Values
 from flask_wtf import FlaskForm
-from wtforms import Form, BooleanField, StringField, PasswordField,FileField,SelectField
-from wtforms.validators import DataRequired,EqualTo,Length
+from wtforms import Form, BooleanField, StringField, PasswordField,FileField,SelectField,EmailField
+from wtforms.validators import DataRequired,EqualTo,Length,Email
 
 
 class CreateUser(FlaskForm):
-    name = StringField("Full Name",validators = [DataRequired()])
-    username = StringField('Username', validators = [DataRequired()])
-    email = StringField("Email",validators = [DataRequired()])
-    password = PasswordField('Password', validators = [DataRequired(),EqualTo("password2",message="Password must match")])
+    name = StringField("Full Name",validators = [DataRequired(),Length(max=120)])
+    username = StringField('Username', validators = [DataRequired(),Length(min=4,max=20)])
+    email = EmailField('Email address', validators = [DataRequired(),Email()])
+    password = PasswordField('Password', validators = [DataRequired(),Length(min=8),EqualTo("password2",message="Password must match")])
     password2 = PasswordField("Confirm Password",validators=[DataRequired()])
 
 class LoginForm(FlaskForm):
@@ -17,10 +15,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators = [DataRequired()])
     
 class EditUser(FlaskForm):
-    name = StringField("Full Name",validators = [DataRequired()])
-    username = StringField('Username', validators = [DataRequired()])
-    email = StringField("Email",validators = [DataRequired()])
-    bio = StringField("Bio")
+    name = StringField("Full Name",validators = [DataRequired(),Length(max=120)])
+    username = StringField('Username', validators = [DataRequired(),Length(min=4,max=20)])
+    email = StringField("Email",validators = [DataRequired(),Length(min=4,max=120)])
+    bio = StringField("Bio",validators=[Length(min=10,max=400)])
     profile_picture = FileField("Your profile picture")
 class addClothing(FlaskForm):
     types = ["hat","shirt","jacket","gloves","pants","shorts","shoes","socks"]
