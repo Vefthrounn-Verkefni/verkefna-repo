@@ -4,20 +4,21 @@
 
 {% block content %}
     
-
 <div class="ui grid">
-    
-    {% for post in posts%}
     <div class="one collumn row">
+    {% for post in posts%}
+
         <div class="post-container">
         <div class="ui card">
             <div class="content">
-              <div class="right floated meta">14h</div>
+            <a href="/userProfile/{{post.user.id}}">
+              <div class="right floated meta">Today</div>
               {%if post.user.profile_picture == "n/a" %}
               <img class="ui avatar image" src="{{ url_for('static', filename='img/default_profile_pic.jpg') }}"> {{post.user.username}}
               {% else %}
               <img class="ui avatar image" src="{{ url_for('static', filename='profile_data/'+post.user.id|string() + '_' + post.user.username+'/'+ post.user.profile_picture) }}"> {{post.user.username}}
-              {% endif %}  
+              {% endif %} 
+            </a> 
             </div>
             <div class="image">
                 <img class="ui medium centered image" id='{{post.id}}' >             
@@ -27,6 +28,7 @@
                 <span class="right floated">
                     <i id="{{post.id|string + '_rightIcon'}}" class="angle large right link icon"></i>
                 </span>
+                <span id="{{post.id|string + '_step'}}" class="hidden" value="0">0</span>
             </div>
  
             <div class="content">
@@ -36,7 +38,8 @@
                 {{post.likes}} likes
               </span>
           </div>
-        {% set image_list = []%}
+        {% set image_list = [] %}
+        
         {% for item in clothing%}
             
             {%if item.id == post.hat %}
@@ -72,100 +75,82 @@
             {% endif %}
             
         {% endfor %}
-       <script > 
-            
-            var img_list = {{image_list| tojson}};
+        {% set x=postsDict.__setitem__(post.id, image_list) %}
+          
+          <script>
+            var imgList = {{image_list| tojson}};
             
             var id = {{post.id| tojson}};
-            var step = 0;
 
             var imgElement = document.getElementById(id);
-            imgElement.src = "static/clothes_images/"+img_list[step];
+            imgElement.src = "static/clothes_images/"+imgList[0];
 
             backArrow = document.getElementById(id.toString()+"_leftIcon");
             forwardArrow = document.getElementById(id.toString()+"_rightIcon");
             
+            if(imgList.length == 1){
+                backArrow.className = "hidden";
+                forwardArrow.className = "hidden";
+            }
+
+
+            backArrow.className = "hidden";
+
+          </script>
+
+    </div>
+    </div>
+    {% endfor %}
+    <script>
+        var postsDict = {{postsDict | tojson}};
+        console.log(postsDict);
+        function stepper(event,forwardBackward){
+            var id = parseInt(event.target.id.replace('_rightIcon',''));
+            console.log(id);
+            step = parseInt(document.getElementById(id.toString()+"_step").textContent)
+            if(forwardBackward)step++;
+            else step--;
+            document.getElementById(id.toString()+"_step").textContent = step.toString();
+
+            imgElement = document.getElementById(id);
+            imgElement.src = "static/clothes_images/"+postsDict[id][step];
+            backArrow = document.getElementById(id.toString()+"_leftIcon");
+            forwardArrow = document.getElementById(id.toString()+"_rightIcon");
+
+            if(step<=1){
+                backArrow.className = arrowoff;
+            }
+            if(step>0){
+                backArrow.className = leftArrowOn;
+            }
+            if(step==postsDict[id].length-1){
+                forwardArrow.className = arrowoff;
+            }
+            if(step<postsDict[id].length-1 && postsDict[id].length >1){
+                forwardArrow.className = rightArrowOn;
+                
+            }
+        }
+        Object.entries(postsDict).forEach(post => {
+            id = post[0];
             leftArrowOn = "angle large left link icon"
             rightArrowOn = "angle large right link icon"
             arrowoff = "hidden"
-
-            if(img_list.length == 1){
-                backArrow.className = "hidden";
-                forwardArrow.className = "hidden"
-            }
-            onUpdate()
-            function onUpdate(){
-                if(step<=1){
-                    backArrow.className = arrowoff;
-                }
-                if(step>0){
-                    backArrow.className = leftArrowOn;
-                }
-                if(step==img_list.length-1){
-                    forwardArrow.className = arrowoff;
-                }
-                if(step<img_list.length-1 && img_list.length > 1){
-                    forwardArrow.className = rightArrowOn;
-                    
-                }
-                console.log(step);
-                console.log(img_list.length-1)
-            }
-            function changeImageMinus() {
-                
-                if(step==0){
-                    return
-                } 
-                step--
-                imgElement.src = "static/clothes_images/"+img_list[step];
-
-            }
-            function changeImagePlus() {
-                
-                if(step==img_list.length-1) return
-                step++
-                imgElement.src = "static/clothes_images/"+img_list[step];
-            }
-            forwardArrow.addEventListener("click", function() {
-                changeImagePlus();
-                onUpdate()
-
-              });
-            backArrow.addEventListener("click", function() {
-                changeImageMinus();
-                onUpdate()
-                
-              });
+               
             
-            
-        </script>
+            backArrow = document.getElementById(id.toString()+"_leftIcon").addEventListener("click", function(event) {
+                stepper(event,false);   
+            });
+            forwardArrow = document.getElementById(id.toString()+"_rightIcon").addEventListener("click", function(event) {
+                stepper(event,true); 
+            });
 
-    </div>
-    </div>
-    {% endfor %}
-
+          });
+        
+    </script>
+    
 </div>
-
+</div>
 {% endblock content %}
 
 
-
-<!--
-<div>
-    
-    {% for user in users%}
-    <div>
-        ----------------------
-        <h4>ID - {{user.id}}</h4>
-        <h4>Name - {{user.name}}</h4>
-        <h4>Email - {{user.email}}</h4>
-        <h4>Password - {{user.password_hash}}</h4>
-        ----------------------
-    </div>
-    {% endfor %}
-    
-</div>
--->
->>>>>>> develop
-=======
->>>>>>> develop
