@@ -11,7 +11,7 @@
     <title>{% block titill %}{% endblock titill %}</title>
 </head>
 <header class="ui">
-    <div class="ui inverted menu">
+    <div class="ui sticky inverted menu">
         <button1 class="item">
             <i class="align justify icon"></i>
         </button1>
@@ -53,7 +53,7 @@
     </div>    
 
 </header>
-<body>
+<body class="ui active tab">
     {% with messages = get_flashed_messages(with_categories=true) %}
      {% if messages %}
       {% for category, message in messages %}
@@ -67,6 +67,13 @@
   
     {% block content %}
     {% endblock content %}
+    <footer class="ui">
+        <div class="ui column center aligned page grid">
+            <a href="/postMenu" class="ui small image">
+                <img src="static/img/plus-icon.svg">
+              </a>
+    </footer>
+
     <script
         src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -78,6 +85,7 @@
         $('button1').click(function () {
             $('.ui.sidebar').sidebar('toggle');
         })
+        $('.ui.sticky') .sticky();
     </script>
     <!-- <script type="text/javascript" src="{{url_for('static', filename='js/app.js')}}"></script> -->
 </body>

@@ -7,13 +7,56 @@
 
 <div class="ui grid">
     
-    {% for user in users%}
+    {% for post in posts%}
     <div class="one collumn row">
        <img class="ui medium centered image" src="static/img/test.jpg">
-       <h2>Posted by {{user.name}}</h2>
+       {{post.id}}
+       <h2>Posted by {{post.user.username}}</h2>
+       
+       {% for item in clothing%}
+
+        {%if item.id == post.hat %}
+            {{image_list.append(item.image_link)}}
+        {% endif %}
+
+        {%if item.id == post.shirt %}
+            {{image_list.append(item.image_link)}}
+        {% endif %}
+
+        {%if item.id == post.jacket %}
+            {{image_list.append(item.image_link)}}
+        {% endif %}
+
+        {%if item.id == post.gloves %}
+            {{image_list.append(item.image_link)}}
+        {% endif %}
+
+        {%if item.id == post.pants %}
+            {{image_list.append(item.image_link)}}
+        {% endif %}
+
+        {%if item.id == post.shorts %}
+            {{image_list.append(item.image_link)}}
+        {% endif %}
+
+        {%if item.id == post.shoes %}
+            {{image_list.append(item.image_link)}}
+        {% endif %}
+
+        {%if item.id == post.socks %}
+            {{image_list.append(item.image_link)}}
+        {% endif %}
+        <img id='{{post.id}}' >
+       {% endfor %}
+       <script>
+        var img_list = {{image_list| tojson}}
+        var id = {{post.id| tojson}}
+        var textElement = document.getElementById(id);
+        textElement.src = "static/clothes_images/"+img_list[0]
+       </script>
     </div>
     {% endfor %}
-    
+
 </div>
 
 {% endblock content %}

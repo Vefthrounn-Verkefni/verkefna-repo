@@ -34,22 +34,23 @@
 <br><br><br>
     <div>
         <h1>My Clothing</h1>
-        <div>
+        <div class="ui three column grid">
             {% for item in clothing%}
-        
-                <div class="ui card">
-                    <div class="image">
-                        <img src="{{url_for('static',filename='clothes_images/'+ item.image_link)}}" alt="" >
-                    </div>
-                    <div class="content">
-                      <a class="header">{{item.type}}</a>
+                <div class="ui five wide column">
+                    <div class="ui card">
+                        <div class="image">
+                            <img src="{{url_for('static',filename='clothes_images/'+ item.image_link)}}" alt="" >
+                        </div>
+                        <div class="content">
+                        <a class="header">{{item.type}}</a>
 
-                      <div class="description">
-                        {{item.describtion}}
-                      </div>
-                      <a class="ui mini right floated red button" href="/deleteClothing/{{item.id}}">Delete</a>
+                        <div class="description">
+                            {{item.describtion}}
+                        </div>
+                        <a class="ui mini right floated red button" href="/deleteClothing/{{item.id}}">Delete</a>
+                        </div>
                     </div>
-                  </div>
+                </div>
             {% endfor %}
         </div>
     </div>

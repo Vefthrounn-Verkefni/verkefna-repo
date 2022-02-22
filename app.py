@@ -1,4 +1,4 @@
-from email.policy import default
+
 from json.encoder import py_encode_basestring_ascii
 from unicodedata import name
 from flask import Flask, render_template, request,redirect, url_for,flash,session
@@ -68,7 +68,8 @@ class ClothingModel(db.Model):
 class PostModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id  = db.Column(db.Integer,db.ForeignKey(UserModel.id))
-    likes = db.Column(db.Integer)
+    likes = db.Column(db.Integer,default=0)
+
     hat = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
     shirt = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
     jacket = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
@@ -81,8 +82,10 @@ class PostModel(db.Model):
 
 @app.route("/",methods=["GET","POST"])
 def index():
-    users = UserModel.query.all()
-    return render_template("index.html",users=users)
+    posts = PostModel.query.all()
+    clothing = ClothingModel.query.all()
+    image_list = []
+    return render_template("index.html",posts=posts,clothing=clothing,image_list=image_list)
 
 @app.route("/dashboard",methods=["GET","POST"])
 @login_required
@@ -202,7 +205,6 @@ def addNewClothing():
                                 image_link = picture_name,
                                 user_id = current_user.id
                                 )
-
         db.session.add(clothing)
         db.session.commit()
         return redirect(url_for("dashboard"))
@@ -214,13 +216,15 @@ def deleteClothing(id):
     db.session.delete(clothing_delete)
     db.session.commit()
     return redirect("/dashboard")
+
+@app.route("/postMenu",methods=["GET"])  
+def postMenu():
+    return render_template("postMenu.html")
+
 @app.route("/addPost",methods=["GET","POST"])  
 def addPost():
     if session.get("Post") == None:
         session['Post'] = {"hat":0 ,"shirt":0,"jacket":0,"gloves":0,"pants":0,"shorts":0,"shoes":0,"socks":0}
-        reset="True"
-    else:
-        reset="False"
     types = ["hat","shirt","jacket","gloves","pants","shorts","shoes","socks"]
     clothingDict = {}
     post = session['Post']
@@ -230,7 +234,26 @@ def addPost():
         else:
             clothingDict[type] = 0
     
-    return render_template("addPost.html",types=types,reset=reset,post=clothingDict)
+    return render_template("addPost.html",types=types,post=clothingDict)
+
+@app.route("/publishPost",methods=["GET"])
+def publishPost():
+    nullPostCheck = True
+    post = session['Post']
+    for type,id in post.items():
+        if id != 0:
+            nullPostCheck = False
+    if nullPostCheck:
+        flash("You have to add items to your outfit","negative")
+        return redirect("/addPost")
+    else:
+        newPost = PostModel(user_id  = current_user.id)
+        for type,id in post.items():
+            setattr(newPost, type, id)
+        db.session.add(newPost)
+        db.session.commit()
+        session['Post'] = {"hat":0 ,"shirt":0,"jacket":0,"gloves":0,"pants":0,"shorts":0,"shoes":0,"socks":0}
+        return redirect("/")
 
 @app.route("/selectCloting/<string:clothingtype>",methods=["GET","POST"])  
 def selectCloting(clothingtype):
@@ -248,7 +271,7 @@ def addClotingToPost(itemId):
 @app.route("/removeClotingToPost/<string:type>",methods=["GET","POST"])  
 def removeClotingToPost(type):
     post = session['Post']
-    post[type] = None
+    post[type] = 0
     session['Post'] = post
     return redirect('/addPost')
 
