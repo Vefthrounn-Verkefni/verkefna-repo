@@ -25,27 +25,71 @@ with open("static/outfitStyles.json", "r", encoding='utf-8') as skra: # encoding
 def load_user(user_id):
     return UserModel.query.get(int(user_id))
 
+<<<<<<< HEAD:run.py
+=======
+# SQL model fyrir User
 
 
-@app.route("/",methods=["GET"])
+class UserModel(db.Model,UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
+    username = db.Column(db.String(50), nullable=False, unique=True)
+    email = db.Column(db.String(120), nullable=False, unique=True)
+    bio = db.Column(db.String(400), nullable=False,default="")
+    profile_picture = db.Column(db.String(400),default="n/a")
+    date_added = db.Column(db.DateTime,default=datetime.utcnow())
+    password_hash = db.Column(db.String(128), nullable=False)
+    clothings = db.relationship("ClothingModel",backref="user")
+    posts = db.relationship("PostModel",backref="user")
+
+    def __repr__(self):
+        return "<Name %r>" % self.name
+<<<<<<< HEAD
+""" 
+=======
+
+>>>>>>> develop
+class ClothingModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    describtion = db.Column(db.String(220))
+    type = db.Column(db.String(10), nullable=False)
+<<<<<<< HEAD
+    image_link = db.Column(db.String(),nullable=False)
+"""
+=======
+    image_link = db.Column(db.String(400),nullable=False)
+    user_id  = db.Column(db.Integer,db.ForeignKey(UserModel.id))
+
+class PostModel(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id  = db.Column(db.Integer,db.ForeignKey(UserModel.id))
+    likes = db.Column(db.Integer,default=0)
+
+    hat = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
+    shirt = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
+    jacket = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
+    gloves = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
+    pants = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
+    shorts = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
+    shoes = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
+    socks = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
+
+>>>>>>> parent of 1b575a3 (merge):app.py
+
+>>>>>>> develop
+@app.route("/",methods=["GET","POST"])
 def index():
     posts = PostModel.query.all()
     clothing = ClothingModel.query.all()
     image_list = []
-    postsDict={}
-    return render_template("index.html",posts=posts,clothing=clothing,image_list=image_list,postsDict=postsDict)
+    return render_template("index.html",posts=posts,clothing=clothing,image_list=image_list)
 
 @app.route("/dashboard",methods=["GET","POST"])
 @login_required
 def dashboard():
     userClothes = current_user.clothings
     return render_template("userDashboard.html",clothing=userClothes)
-@app.route("/userProfile/<int:id>",methods=["GET"])
-def userProfile(id):
-    user = UserModel.query.get(id)
-    userClothes = user.clothings
-    userPosts = user.posts
-    return render_template("userProfile.html",user=user,clothing=userClothes)
+
 @app.route("/login",methods=["GET","POST"])
 def login():
     loginForm = LoginForm()
@@ -144,7 +188,6 @@ def logout():
     return redirect(url_for("index"))
 
 @app.route("/addClothing",methods=["GET","POST"])
-@login_required
 def addNewClothing():
     addClothingForm = addClothing()
     if addClothingForm.validate_on_submit():
@@ -165,7 +208,6 @@ def addNewClothing():
 
     return render_template("addClothing.html",form=addClothingForm) 
 @app.route("/deleteClothing/<int:id>",methods=["GET"])
-@login_required
 def deleteClothing(id):
     clothing_delete = ClothingModel().query.get(id)
     db.session.delete(clothing_delete)
@@ -173,12 +215,10 @@ def deleteClothing(id):
     return redirect("/dashboard")
 
 @app.route("/postMenu",methods=["GET"])  
-@login_required
 def postMenu():
     return render_template("postMenu.html")
 
-@app.route("/addPost",methods=["GET","POST"]) 
-@login_required 
+@app.route("/addPost",methods=["GET","POST"])  
 def addPost():
     if session.get("Post") == None:
         session['Post'] = {"hat":0 ,"shirt":0,"jacket":0,"gloves":0,"pants":0,"shorts":0,"shoes":0,"socks":0}
@@ -194,7 +234,6 @@ def addPost():
     return render_template("addPost.html",types=types,post=clothingDict)
 
 @app.route("/publishPost",methods=["GET"])
-@login_required
 def publishPost():
     nullPostCheck = True
     post = session['Post']
@@ -214,13 +253,11 @@ def publishPost():
         return redirect("/")
 
 @app.route("/selectCloting/<string:clothingtype>",methods=["GET","POST"])  
-@login_required
 def selectCloting(clothingtype):
     clothes = ClothingModel().query.filter_by(type=clothingtype).all()
     return render_template("selectClothing.html",clothingtype=clothingtype,clothes=clothes)
 
 @app.route("/addClotingToPost/<int:itemId>",methods=["GET","POST"])  
-@login_required
 def addClotingToPost(itemId):
     clothing = ClothingModel.query.get(itemId)
     post = session['Post']
@@ -228,8 +265,7 @@ def addClotingToPost(itemId):
     session['Post'] = post
     return redirect('/addPost')
 
-@app.route("/removeClotingToPost/<string:type>",methods=["GET","POST"]) 
-@login_required
+@app.route("/removeClotingToPost/<string:type>",methods=["GET","POST"])  
 def removeClotingToPost(type):
     post = session['Post']
     post[type] = 0

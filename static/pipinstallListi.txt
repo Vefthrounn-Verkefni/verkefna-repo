@@ -3,7 +3,6 @@ flask_wtf
 wtforms
 flask_sqlalchemy
 flask_login
-email_validator
 
 pymysql
 cryptography
