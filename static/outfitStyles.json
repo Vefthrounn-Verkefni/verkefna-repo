@@ -1,19 +1,35 @@
 [
     {   "name":"Biker Clothes"
         ,"img":"https://i.ebayimg.com/images/g/nM4AAOSwCypWmUbC/s-l1600.jpg"
-        ,"desc":"This is a sexy outfit for those with confidence"
+        ,"desc":"This is a sexy outfit for those with confidence."
     },
     
-    {   "name":"Biker Clothes"
-        ,"img":"https://i.ebayimg.com/images/g/nM4AAOSwCypWmUbC/s-l1600.jpg"
-        ,"desc":"This is a sexy outfit for those with confidence"
+    {   "name":"Casual Wear"
+        ,"img":"https://cache.mrporter.com/content/images/cms/ycm/resource/blob/782330/62f16fd09ca78560e9f636b16f07c348/2dace265-d464-418f-a56f-4654a4532738-data.jpg/w400_q80.jpg"
+        ,"desc":"This is clothes for everyday uses."
     },
-    {   "name":"Biker Clothes"
-        ,"img":"https://i.ebayimg.com/images/g/nM4AAOSwCypWmUbC/s-l1600.jpg"
-        ,"desc":"This is a sexy outfit for those with confidence"
+    {   "name":"Cosplay"
+        ,"img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOtf4BNu-zYn1aw2RpDgsaCoSEBjnlNJ1btw&usqp=CAU"
+        ,"desc":"It's costumes and accessories representing specific characters from movies, tv-show, books and etc."
     },
-    {   "name":"Biker Clothes"
-        ,"img":"https://i.ebayimg.com/images/g/nM4AAOSwCypWmUbC/s-l1600.jpg"
-        ,"desc":"This is a sexy outfit for those with confidence"
+    {   "name":"Evening Wear"
+        ,"img":"https://www.leatherjacketblack.com/wp-content/uploads/2020/03/James-Bond-Spectre-Grey-Pinstripe-Suit.jpg"
+        ,"desc":"When you need to look fancy and formal."
+    },
+    {   "name":"Exotic Fashion Wear"
+        ,"img":"https://i.pinimg.com/originals/ef/d3/8f/efd38fab61dd5f6bb1f5a327b394ea23.jpg"
+        ,"desc":"Exotic fashion is a clothing style centered on colorful, rich, attention-grabbing clothes. It's often composed of vibrant colors, prints, or embroidery."
+    },
+    {   "name":"Gothic fashion"
+        ,"img":"http://www.lucyfire-fashion.com/media/catalog/product/cache/2/image/650x/040ec09b1e35df139433887a97daa66f/d/e/devil-fashion-schwarze-gothic-damen-bluse_sht04001_standard-0.jpg"
+        ,"desc":"When you want to rebel. Very good at making conservative parents annoyed."
+    },
+    {   "name":"Hip hop clothing"
+        ,"img":"https://www.nme.com/wp-content/uploads/2016/09/1990NWAPhotoshot250815.hero_.jpg"
+        ,"desc":"Only allowed to those who are from the streets."
+    },
+    {   "name":"Sportswear style"
+        ,"img":"https://preview.redd.it/l5pfkpxx5c261.png?width=511&format=png&auto=webp&s=6942941adcb5ad872b76049f67a531b86520339e"
+        ,"desc":"The most comfortable clothes in the Solar systam."
     }
 ]
