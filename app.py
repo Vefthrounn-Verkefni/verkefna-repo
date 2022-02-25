@@ -65,14 +65,14 @@ class ClothingModel(db.Model):
     describtion = db.Column(db.String(220))
     type = db.Column(db.String(10), nullable=False)
     image_link = db.Column(db.String(400),nullable=False)
-    #date_added = db.Column(db.DateTime,default=datetime.utcnow())
+    date_added = db.Column(db.DateTime,default=datetime.utcnow())
     user_id  = db.Column(db.Integer,db.ForeignKey(UserModel.id))
 
 class PostModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id  = db.Column(db.Integer,db.ForeignKey(UserModel.id))
     likes = db.Column(db.Integer,default=0)
-    #date_added = db.Column(db.DateTime,default=datetime.utcnow())
+    date_added = db.Column(db.DateTime,default=datetime.utcnow())
     hat = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
     shirt = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
     jacket = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
@@ -83,13 +83,31 @@ class PostModel(db.Model):
     socks = db.Column(db.Integer,db.ForeignKey(ClothingModel.id), default=null)
 
 
+def days_between(d1, d2):
+    d1 = datetime.strptime(d1, "%Y-%m-%d %H:%M:%S.%f")
+    d2 = datetime.strptime(d2, "%Y-%m-%d %H:%M:%S.%f")
+    return abs((d2 - d1).days)
+
+
 @app.route("/",methods=["GET"])
 def index():
     posts = PostModel.query.all()
     clothing = ClothingModel.query.all()
     image_list = []
     postsDict={}
-    return render_template("index.html",posts=posts,clothing=clothing,image_list=image_list,postsDict=postsDict)
+    timeSince = {}
+    for post in posts:
+        timeDiff = days_between(str(datetime.utcnow()),str(post.date_added))
+        
+        if timeDiff == 1:
+            timeSince[post.id] = "Today"
+        elif timeDiff == 2:
+            timeSince[post.id] = "Yesterday"
+        else: 
+            timeSince[post.id] = f"{timeDiff} days ago" 
+
+    
+    return render_template("index.html",posts=posts,clothing=clothing,image_list=image_list,postsDict=postsDict,timeSince=timeSince)
 
 @app.route("/dashboard",methods=["GET","POST"])
 @login_required
