@@ -13,7 +13,10 @@
 Við notuðum Flask framworkið í python sem við notuðum fyrir alla backenda vinnu. Einnig var notað Semantic Ui css library fyrir lookið. MySql var notaður til að hýsa lang flest gögn, við notuðum SqlAlchemy library til þess að tala við MySql. Við notuðum json fyrir outfit_styles sem eru bara static gögn. við notuðum flask wtforms til þess að búa til öll html formin. 
 
 #### Gagnagrunns hönnun 
-við notuðum Mysql sem gagnagrunn okkar með þrem models fyrir userinn
+við notuðum Mysql sem gagnagrunn okkar með þrem models fyrir userinn, fötin og posta, UserModelið geymir id sem er primary key, nafn, username, email, bio, dagsetning þegar userinn var gerður,link á profile mynd, password, og tengingar á föt og posta. 
+Fata modelið geymir id sem er primary key, type, lýsingu, link á mynd af fatnaðnum, dagsetning þegar fatnaðurinn var bættur inn og foreign key á userinn sem bætti því inn.
+Post modelið geymir id sem er primary key, foreign key á userinn sem postaði, like sem postinn hefur, dagsetning þegar það var postað, og margir foreign keys á mismunandi týpur af fatnaði.
+
 #### Listi yfir python librarys sem við notuðum:
 * flask
 * flask_wtf(wtforms) + email_validator
