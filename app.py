@@ -1,6 +1,3 @@
-
-from json.encoder import py_encode_basestring_ascii
-from unicodedata import name
 from flask import Flask, render_template, request,redirect, url_for,flash,session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
@@ -295,9 +292,6 @@ def removeClotingToPost(type):
     session['Post'] = post
     return redirect('/addPost')
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return redirect("/") # gera custom page seinna
 
 
 @app.route("/whatToWear")
@@ -315,6 +309,24 @@ def outfit(string):
     return render_template("outfitStyle.html", gogn = info, name = string)
 
 
+@app.route("/search", methods=["GET","POST"])
+def search():
+    listi = []
+    INPUT = request.form.get("Input")
+    for i in outfitStyles:   
+        if (i["name"].find(INPUT) != -1):
+            listi.append(i)
+        
+            
+
+    return render_template("search.html", gogn = listi)
+
+
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return redirect("/") # gera custom page seinna
 
 
 @app.errorhandler(500)

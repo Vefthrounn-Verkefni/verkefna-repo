@@ -4,6 +4,15 @@
 
 {% block content %}
     
-    <h1>Leit</h1>
+    <div class="ui three column grid">
+        {% for i in gogn %}
+            <div class="column">
+                <div class="ui segment">
+                    <h1>{{i["name"]}}</h1>
+                    <img class="ui medium circular image" src="{{i['img']}}" alt="">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock content %}

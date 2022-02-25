@@ -30,8 +30,8 @@
         <a class="item" href="{{ url_for('index') }}">Home</a>
         <div class="right menu">
             <div class="item">
-                <form class="ui icon input" id="search" >
-                        <input type="text" placeholder="Search..." id='searchText'>
+                <form action="/search" class="ui icon input" id="search" method="POST">
+                        <input type="text" name="Input" placeholder="Search..." id='searchText'>
                         <i class="search icon" type='submit' value='Search' ></i>
                 </form>
             </div>
