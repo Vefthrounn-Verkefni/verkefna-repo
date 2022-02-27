@@ -35,3 +35,9 @@ Við myndum bætta við að hægt væri að lika og commenta post, followa aðra
 
 #### Virkni
 * Linkur á youtube: [Hér](https://youtu.be/BhC7eSogsvs)
+* Mynd af [Forsíðu](https://github.com/Vefthrounn-Verkefni/verkefna-repo/blob/main/Screenshot%20(40).png)
+* Mynd af [Sidebar](https://github.com/Vefthrounn-Verkefni/verkefna-repo/blob/main/Screenshot%20(41).png)
+* Mynd af [What should i wear](https://github.com/Vefthrounn-Verkefni/verkefna-repo/blob/main/Screenshot%20(42).png)
+* Mynd af [Sign Up](https://github.com/Vefthrounn-Verkefni/verkefna-repo/blob/main/Screenshot%20(43).png)
+* Mynd af [Sidebar](https://github.com/Vefthrounn-Verkefni/verkefna-repo/blob/main/Screenshot%20(44).png)
+* Mynd af [User Dashboard](https://github.com/Vefthrounn-Verkefni/verkefna-repo/blob/main/Screenshot%20(45).png)
