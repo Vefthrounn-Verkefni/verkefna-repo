@@ -31,3 +31,7 @@ Post modelið geymir id sem er primary key, foreign key á userinn sem postaði,
 
 #### Næstu skref
 Við myndum bætta við að hægt væri að lika og commenta post, followa aðra Usera og sjá hvaða postar hefðu mestu like. 
+
+
+#### Virkni
+* Linkur á youtube: [Hér](https://youtu.be/BhC7eSogsvs)
