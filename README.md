@@ -34,6 +34,7 @@ Við myndum bætta við að hægt væri að lika og commenta post, followa aðra
 
 
 #### Virkni
+  Linkur á Síðuna: [Hér](https://lookcool.me/)
 * Linkur á youtube: [Hér](https://youtu.be/BhC7eSogsvs)
 * Mynd af [Forsíðu](https://github.com/Vefthrounn-Verkefni/verkefna-repo/blob/main/Screenshot%20(40).png)
 * Mynd af [Sidebar](https://github.com/Vefthrounn-Verkefni/verkefna-repo/blob/main/Screenshot%20(41).png)
