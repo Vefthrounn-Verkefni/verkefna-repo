@@ -16,7 +16,9 @@
             <i class="align justify icon"></i>
         </button1>
         <div class="ui sidebar inverted vertical menu">
-            <h2 style="color:white">Menu</h2>
+            <div class="center-image">
+                <img src="static/img/Logo.svg">
+            </div>
             <a class="item">
                 Search
             </a>
@@ -53,7 +55,7 @@
     </div>    
 
 </header>
-<body class="ui active tab">
+<body class="ui active tab blue-background">
     {% with messages = get_flashed_messages(with_categories=true) %}
      {% if messages %}
       {% for category, message in messages %}
@@ -68,8 +70,8 @@
     {% block content %}
     {% endblock content %}
     <footer class="ui">
-        <div class="ui column center aligned page grid">
-            <a href="/postMenu" class="ui small image">
+        <div class="ui">
+            <a href="/postMenu" class="ui tiny right floated image">
                 <img src="static/img/plus-icon.svg">
               </a>
     </footer>

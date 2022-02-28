@@ -53,15 +53,21 @@ footer{
 
 .center-form {
   display: flex;
-  height: 500px;
+  height: 200px;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.post {
+.center-image {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2em;
+  flex-wrap: wrap;
 }
-.hidden {
-  display: none;
+
+.blue-background {
+  background-image: linear-gradient(#ccffff,#ffffff);
+  background-repeat: no-repeat;
 }
